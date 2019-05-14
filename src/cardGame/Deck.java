@@ -8,20 +8,44 @@ public class Deck {
 	private ArrayList<Cards> Card = new ArrayList<Cards>();
 	
 	
-	public void deleteCard(){
+	public void deleteCard(int pos){
 		
+		Card.remove(pos);
 		
 	}
 	
-	public void show(int current){
+	public void showCard(int current){
 		
 		System.out.println(Card.get(current).getName());
 		
 	}
+	
+	public int deckSize(){
+		return Card.size();
+	}
 
+	public void clearDeck(){
+		
+		Card.clear();
+		
+	}
+	
+	
+	public boolean aceCheck(int i){
+		
+		return Card.get(i).getCheckAce();
+		
+	}
+	
+	public void shuffleDeck(){
+		
+		Collections.shuffle(Card);
+		
+	}
 	
 	public void setDeck(){
 		
+		clearDeck();
 		
 		Card.add(new Cards("ADiamond", 1, true));
 		Card.add(new Cards("2Diamond", 2, false));
@@ -78,6 +102,8 @@ public class Deck {
 		Card.add(new Cards("JSpade", 10, false));
 		Card.add(new Cards("QSpade", 10, false));
 		Card.add(new Cards("KSpade", 10, false));
+		
+		shuffleDeck();
 	
 	}
 }
