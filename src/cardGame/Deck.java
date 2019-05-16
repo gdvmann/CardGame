@@ -8,6 +8,7 @@ public class Deck {
 	private ArrayList<Cards> Card = new ArrayList<Cards>();
 	
 	
+	
 	public void deleteCard(int pos){
 		
 		Card.remove(pos);
@@ -17,6 +18,13 @@ public class Deck {
 	public void showCard(int current){
 		
 		System.out.println(Card.get(current).getName());
+		System.out.println("\n");
+		
+	}
+	
+	public int cardValue(int index){
+		
+		return Card.get(index).getValue();
 		
 	}
 	
@@ -28,6 +36,11 @@ public class Deck {
 		
 		Card.clear();
 		
+	}
+	
+	public boolean isEmpty(){
+		
+		return Card.isEmpty();		
 	}
 	
 	
@@ -43,11 +56,24 @@ public class Deck {
 		
 	}
 	
+	public void addCard(Cards deck){
+		
+		Card.add(deck);
+		
+	}
+	
+	public void dealCard(Deck deck2){
+		
+		deck2.addCard(Card.get(0));
+		deleteCard(0);
+		
+	}
+	
 	public void setDeck(){
 		
 		clearDeck();
 		
-		Card.add(new Cards("ADiamond", 1, true));
+		Card.add(new Cards("ADiamond", 10, true));
 		Card.add(new Cards("2Diamond", 2, false));
 		Card.add(new Cards("3Diamond", 3, false));
 		Card.add(new Cards("4Diamond", 4, false));
@@ -61,7 +87,7 @@ public class Deck {
 		Card.add(new Cards("QDiamond", 10, false));
 		Card.add(new Cards("KDiamond", 10, false));
 		
-		Card.add(new Cards("AClub", 1, true));
+		Card.add(new Cards("AClub", 10, true));
 		Card.add(new Cards("2Club", 2, false));
 		Card.add(new Cards("3Club", 3, false));
 		Card.add(new Cards("4Club", 4, false));
@@ -75,7 +101,7 @@ public class Deck {
 		Card.add(new Cards("QClub", 10, false));
 		Card.add(new Cards("KClub", 10, false));
 	
-		Card.add(new Cards("AHeart", 1, true));
+		Card.add(new Cards("AHeart", 10, true));
 		Card.add(new Cards("2Heart", 2, false));
 		Card.add(new Cards("3Heart", 3, false));
 		Card.add(new Cards("4Heart", 4, false));
@@ -89,7 +115,7 @@ public class Deck {
 		Card.add(new Cards("QHeart", 10, false));
 		Card.add(new Cards("KHeart", 10, false));
 		
-		Card.add(new Cards("ASpade", 1, true));
+		Card.add(new Cards("ASpade", 10, true));
 		Card.add(new Cards("2Spade", 2, false));
 		Card.add(new Cards("3Spade", 3, false));
 		Card.add(new Cards("4Spade", 4, false));
