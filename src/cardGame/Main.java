@@ -218,8 +218,19 @@ public class Main {
 		playerDeck.showCard(playerIndex);
 		if(playerDeck.aceCheck(playerIndex)){
 			
-			System.out.println("You were dealt an Ace, would you like it to be a 1 or 10?");
-			playerScore = playerScore + input.nextInt();
+			System.out.println("You were dealt an Ace, would you like it to be a 1 or 11?");
+			int ace = input.nextInt();
+			while(ace != 1 && ace != 11){
+				System.out.println("Invalid number, choose 1 or 11");
+				ace = input.nextInt();
+			}
+			if(ace == 1){
+				playerScore = playerScore + 1;
+			}
+			else if (ace == 11){
+				playerScore = playerScore + 11;
+			
+			}	
 			
 		}
 		else
@@ -242,8 +253,20 @@ public class Main {
 		playerDeck.showCard(playerIndex);
 		if(playerDeck.aceCheck(playerIndex)){
 			
-			System.out.println("You were dealt an Ace, would you like it to be a 1 or 10?");
-			playerScore = playerScore + input.nextInt();
+			System.out.println("You were dealt an Ace, would you like it to be a 1 or 11?");
+			int ace = input.nextInt();
+			while(ace != 1 && ace != 11){
+				System.out.println("Invalid number, choose 1 or 11");
+				ace = input.nextInt();
+			}
+			if(ace == 1){
+				playerScore = playerScore + 1;
+			}
+			else if (ace == 11){
+				playerScore = playerScore + 11;
+			
+			}
+			
 			
 		}
 		else
@@ -255,7 +278,12 @@ public class Main {
 		deck.dealCard(dealerDeck);
 		System.out.println("Dealer was dealt a card face down\n");
 		if(dealerDeck.aceCheck(dealerIndex)){
-			dealerScore = dealerScore + 1; // 2nd hand lets make it always a 1 
+			if(dealerScore >= 11){
+				dealerScore = dealerScore + 1;
+			}
+			else {
+				dealerScore = dealerScore +11;
+			} 
 		}
 		else
 		{
@@ -290,8 +318,19 @@ public class Main {
 			playerDeck.showCard(playerIndex);
 			if(playerDeck.aceCheck(playerIndex)){
 				
-				System.out.println("You were dealt an Ace, would you like it to be a 1 or 10?");
-				playerScore = playerScore + input.nextInt();
+				System.out.println("You were dealt an Ace, would you like it to be a 1 or 11?");
+				int ace = input.nextInt();
+				while(ace != 1 && ace != 11){
+					System.out.println("Invalid number, choose 1 or 11");
+					ace = input.nextInt();
+				}
+				if(ace == 1){
+					playerScore = playerScore + 1;
+				}
+				else if (ace == 11){
+					playerScore = playerScore + 11;
+				
+				}
 				
 			}
 			else
@@ -334,8 +373,11 @@ public class Main {
 				System.out.println("Dealer draws  \n");
 				dealerDeck.showCard(dealerIndex);
 				if(dealerDeck.aceCheck(dealerIndex)){
-					if(dealerScore > 12){
+					if(dealerScore >= 11){
 						dealerScore = dealerScore + 1;
+					}
+					else {
+						dealerScore = dealerScore +11;
 					}
 					
 				}
@@ -408,25 +450,5 @@ public class Main {
 		return money;
 	}
 	
-	private static int playerTurn(Deck deck, Deck playerDeck, int playerScore, int index){
-		@SuppressWarnings("resource")			
-		Scanner input = new Scanner(System.in);
-		
-		deck.dealCard(playerDeck);
-		System.out.println("You were dealt a \n");
-		playerDeck.showCard(index);
-		if(playerDeck.aceCheck(index)){
-			
-			System.out.println("You were dealt an Ace, would you like it to be a 1 or 10?");
-			playerScore = playerScore + input.nextInt();
-			
-		}
-		else
-		{
-			playerScore = playerScore + playerDeck.cardValue(index);
-		}
-		
-		return playerScore;
-	}
 
 } // final

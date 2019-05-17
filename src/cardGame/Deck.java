@@ -73,7 +73,7 @@ public class Deck {
 		
 		clearDeck();
 		
-		Card.add(new Cards("ADiamond", 10, true));
+		Card.add(new Cards("ADiamond", 11, true));
 		Card.add(new Cards("2Diamond", 2, false));
 		Card.add(new Cards("3Diamond", 3, false));
 		Card.add(new Cards("4Diamond", 4, false));
@@ -87,7 +87,7 @@ public class Deck {
 		Card.add(new Cards("QDiamond", 10, false));
 		Card.add(new Cards("KDiamond", 10, false));
 		
-		Card.add(new Cards("AClub", 10, true));
+		Card.add(new Cards("AClub", 11, true));
 		Card.add(new Cards("2Club", 2, false));
 		Card.add(new Cards("3Club", 3, false));
 		Card.add(new Cards("4Club", 4, false));
@@ -101,7 +101,7 @@ public class Deck {
 		Card.add(new Cards("QClub", 10, false));
 		Card.add(new Cards("KClub", 10, false));
 	
-		Card.add(new Cards("AHeart", 10, true));
+		Card.add(new Cards("AHeart", 11, true));
 		Card.add(new Cards("2Heart", 2, false));
 		Card.add(new Cards("3Heart", 3, false));
 		Card.add(new Cards("4Heart", 4, false));
@@ -115,7 +115,7 @@ public class Deck {
 		Card.add(new Cards("QHeart", 10, false));
 		Card.add(new Cards("KHeart", 10, false));
 		
-		Card.add(new Cards("ASpade", 10, true));
+		Card.add(new Cards("ASpade", 11, true));
 		Card.add(new Cards("2Spade", 2, false));
 		Card.add(new Cards("3Spade", 3, false));
 		Card.add(new Cards("4Spade", 4, false));
