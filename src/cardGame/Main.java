@@ -174,7 +174,7 @@ public class Main {
 	}
 	
 	private static void prompt(int money){
-		System.out.println("You Currently have $" + money);
+		System.out.println("You Currently have $" + money + "\n");
 		System.out.println("Would you like to continue this game?");
 		System.out.println("Enter y for yes and n for no");
 		System.out.println("\n");
@@ -207,7 +207,7 @@ public class Main {
 		}
 		money = money - bet;
 		
-		System.out.println("Thank you, you have chosen to bet: " + bet);
+		System.out.println("Thank you, you have chosen to bet: $" + bet + "\n");
 		
 		
 		
@@ -234,7 +234,7 @@ public class Main {
 		dealerScore = dealerDeck.cardValue(dealerIndex); // doesn't matter if there's an ace on the first hand just leave it a 10
 		dealerIndex++;
 		
-		System.out.println("Press any key to continue \n");  // stop gap
+		//System.out.println("Press any key to continue \n");  // stop gap
 		input.nextLine();
 		
 		deck.dealCard(playerDeck);
@@ -275,7 +275,7 @@ public class Main {
 		}
 		
 		
-		
+		// **************************************************************************
 		
 		
 		while(play == true){
@@ -339,11 +339,12 @@ public class Main {
 					}
 					
 				}
-				
+				else{
 				dealerScore = dealerScore + dealerDeck.cardValue(dealerIndex);
+				}
 				dealerIndex++;
 				
-				if(dealerScore > 21){
+			/*	if(dealerScore > 21){
 					System.out.println("Congratulations you win " + bet);
 					money = money + bet*2;
 					play = false;
@@ -354,7 +355,9 @@ public class Main {
 					System.out.println("Sorry you lose");
 					play = false;
 					
-				}
+				} 
+				
+				*/
 			}
 			
 			System.out.println("Dealer currently has: " + dealerScore + "\n");
@@ -368,27 +371,32 @@ public class Main {
 			}
 			
 			if(playerScore > 21){
-				System.out.println("Sorry you lose");
+				System.out.println("Sorry you lose\n");
 				play = false;
 				
 			}
 			
-			if(dealerScore > 21){
-				System.out.println("Congratulations you win " + bet);
+			else if(dealerScore > 21){
+				System.out.println("Congratulations you win " + bet + "\n");
 				money = money + bet*2;
 				play = false;
 				
 			}
+			else if(playerScore == dealerScore){
+				System.out.println("It was a tie, you get your bet back\n");
+				money = money + bet;
+				play = false;
+			}
 			
-			if(playerScore > dealerScore){
+			else if(playerScore > dealerScore){
 				
-				System.out.println("Congratulations you win " + bet);
+				System.out.println("Congratulations you win " + bet + "\n");
 				money = money + bet*2;
 				play = false;
 				
 			}
 			else{
-				System.out.println("Sorry you lose");
+				System.out.println("Sorry you lose\n");
 				play = false;
 				
 			}
