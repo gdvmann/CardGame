@@ -17,8 +17,16 @@ public class Deck {
 	
 	public void showCard(int current){
 		
-		System.out.println(Card.get(current).getName());
+		System.out.print(Card.get(current).getName());
 		System.out.println("\n");
+		
+		
+		
+	}
+	
+	public String printCard(int current){
+		
+		return Card.get(current).getName().toString();
 		
 	}
 	
@@ -69,9 +77,40 @@ public class Deck {
 		
 	}
 	
+	public String getName(int index){
+		
+		return Card.get(index).getName();
+	}
+	
+	public boolean blackjackCheck(){
+		
+		if(Card.get(0).getValue() + Card.get(1).getValue() == 21){
+			if((getName(0).startsWith("A") || getName(1).startsWith("A")) && 
+				(getName(0).startsWith("J") || getName(1).startsWith("J"))){
+				return true;
+			}
+			else{
+				return false;
+			}
+			
+		}
+		else {
+		return false;
+		}
+	}
+	
+	
 	public void setDeck(){
 		
 		clearDeck();
+		
+		addDeck();
+		
+		shuffleDeck();
+	
+	}
+	
+	public void addDeck(){
 		
 		Card.add(new Cards("ADiamond", 11, true));
 		Card.add(new Cards("2Diamond", 2, false));
@@ -129,7 +168,5 @@ public class Deck {
 		Card.add(new Cards("QSpade", 10, false));
 		Card.add(new Cards("KSpade", 10, false));
 		
-		shuffleDeck();
-	
 	}
 }

@@ -6,6 +6,11 @@ import java.util.Random;
 
 public class Main {
 
+	static Deck deck = new Deck();
+	static Deck playerDeck = new Deck();
+	static Deck dealerDeck = new Deck();
+	static Deck splitDeck = new Deck();
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
@@ -15,18 +20,11 @@ public class Main {
 		
 		@SuppressWarnings("resource")			
 		Scanner input = new Scanner(System.in);
-		
-		Deck deck = new Deck();
-		Deck playerDeck = new Deck();
-		Deck dealerDeck = new Deck();
-		
-		
-		deck.setDeck();
-		
+			
 		int currentMoney = 500;
 		char decision;
 		boolean back = false;
-		char dec;
+		
 		
 		boolean stop = false;
 		
@@ -35,19 +33,15 @@ public class Main {
 		
 		
 		while (stop == false){
-		
-		
-		
-		// prompt(currentMoney);
-		
-		
+				
 		
 		decision = input.next().charAt(0);
 		
 		if(decision == 'y'){
+			deck.setDeck();
 			
 			if(currentMoney > 0){
-			currentMoney = game(deck, playerDeck, dealerDeck, currentMoney);
+			currentMoney = game(currentMoney);
 			prompt(currentMoney);
 			}
 			else{
@@ -65,82 +59,9 @@ public class Main {
 			
 		}
 		else if(decision == 'a'){
+			
 			admin();
-			while(back == false){
-				dec = input.next().charAt(0);
-				
-				if(dec == 'n'){
-					
-					System.out.println("There are this many cards :" + deck.deckSize() + "\n");
-					
-				}
-				else if(dec == 'c'){
-					
-					deck.clearDeck();
-					System.out.println("Deck has been cleared\n");
-					
-				}
-				else if(dec == 's'){
-					
-					deck.setDeck();
-					System.out.println("You set the deck\n");
-					
-				}
-				else if(dec == 'd'){
-					
-					deck.showCard(0);
-					
-				}
-				else if(dec == 'f'){
-					
-					deck.shuffleDeck();
-					System.out.println("Deck has been shuffled\n");
-					
-				}
-				else if(dec == 'v'){
-					
-					if(deck.aceCheck(0)){
-						System.out.println("This is an ace\n");
-					}
-					else{
-						System.out.println("This is not an ace\n");
-					}
-					
-				}
-				else if(dec == 'k'){
-					
-					deck.dealCard(playerDeck);
-					System.out.println("Dealt card to player\n");					
-				}
-				else if(dec == 'j'){
-					
-					if(playerDeck.isEmpty()){
-						System.out.println("Player deck is empty\n");
-					}
-					else if(playerDeck.deckSize() > 1){
 						
-						System.out.println("Player has these in deck: \n");
-						for(int i = 0; i <playerDeck.deckSize(); i++){
-						playerDeck.showCard(i);
-						}
-					}
-					else {
-						playerDeck.showCard(0);
-						
-					}
-					
-				}
-				
-				else if(dec == 'b'){
-					
-					back = true;
-					startPrompt();
-					
-				}
-				
-				}
-			
-			
 		}
 		
 		
@@ -171,23 +92,97 @@ public class Main {
 		System.out.println("Type j to show player's card");
 		System.out.println("Type b to go back\n");
 		
+		@SuppressWarnings("resource")			
+		Scanner input = new Scanner(System.in);
+		
+		char dec = input.next().charAt(0);
+		
+		if(dec == 'm'){
+			
+			System.out.println("There are this many cards :" + deck.deckSize() + "\n");
+			
+		}
+		else if(dec == 'c'){
+			
+			deck.clearDeck();
+			System.out.println("Deck has been cleared\n");
+			
+		}
+		else if(dec == 's'){
+			
+			deck.setDeck();
+			System.out.println("You set the deck\n");
+			
+		}
+		else if(dec == 'd'){
+			
+			deck.showCard(0);
+			
+		}
+		else if(dec == 'f'){
+			
+			deck.shuffleDeck();
+			System.out.println("Deck has been shuffled\n");
+			
+		}
+		else if(dec == 'v'){
+			
+			if(deck.aceCheck(0)){
+				System.out.println("This is an ace\n");
+			}
+			else{
+				System.out.println("This is not an ace\n");
+			}
+			
+		}
+		else if(dec == 'k'){
+			
+			deck.dealCard(playerDeck);
+			System.out.println("Dealt card to player\n");					
+		}
+		else if(dec == 'j'){
+			
+			if(playerDeck.isEmpty()){
+				System.out.println("Player deck is empty\n");
+			}
+			else if(playerDeck.deckSize() > 1){
+				
+				System.out.println("Player has these in deck: \n");
+				for(int i = 0; i <playerDeck.deckSize(); i++){
+				playerDeck.showCard(i);
+				}
+			}
+			else {
+				playerDeck.showCard(0);
+				
+			}
+			
+		}
+		
+		else if(dec == 'b'){
+			
+			return;
+			
+		}
 	}
 	
 	private static void prompt(int money){
 		System.out.println("You Currently have $" + money + "\n");
-		System.out.println("Would you like to continue this game?");
+		System.out.println("Would you like to continue this game?\n");
 		System.out.println("Enter y for yes and n for no");
 		System.out.println("\n");
 		
 	}
 	
-	private static int game(Deck deck, Deck playerDeck, Deck dealerDeck, int money){
+	private static int game(int money){
 		@SuppressWarnings("resource")			
 		Scanner input = new Scanner(System.in);
 		
 		deck.setDeck();
 		playerDeck.clearDeck();
 		dealerDeck.clearDeck();
+		
+		Dealer dealer;
 		
 		int playerScore = 0;
 		int dealerScore = 0;
@@ -196,47 +191,43 @@ public class Main {
 		int playerIndex = 0;	// counter for where you are in playerDeck
 		int dealerIndex = 0;	// counter for where you are in dealerDeck
 		
-		System.out.println("How much would you like to bet?");
+		int bust = 0;
+		
+		boolean blackjack = false; // triggers if player gets a blackjack
+		
+		System.out.println("How much would you like to bet?\n");
 		
 		int bet = input.nextInt();
 		
 		while(bet > money){
 			
-			System.out.println("Sorry you don't have enough money, please choose a lower bet");
+			System.out.println("Sorry you don't have enough money, please choose a lower bet\n");
 			bet = input.nextInt();
 		}
 		money = money - bet;
 		
 		System.out.println("Thank you, you have chosen to bet: $" + bet + "\n");
 		
+		/*
+		System.out.println("How much would you like to bust bet?\n");
 		
+		 bust = input.nextInt();
+		
+		while(bust > money){
+			
+			System.out.println("Sorry you don't have enough money, please choose a lower bet\n");
+			bet = input.nextInt();
+		}
+		money = money - bust;
+		
+		System.out.println("Thank you, you have chosen a bust bet of: $" + bust + "\n");
+		
+		*/
 		
 		deck.deleteCard(0); // Sacrifice top card
+		System.out.println("Top card was discarded\n");
 		
-		deck.dealCard(playerDeck);
-		System.out.println("You were dealt \n");
-		playerDeck.showCard(playerIndex);
-		if(playerDeck.aceCheck(playerIndex)){
-			
-			System.out.println("You were dealt an Ace, would you like it to be a 1 or 11?");
-			int ace = input.nextInt();
-			while(ace != 1 && ace != 11){
-				System.out.println("Invalid number, choose 1 or 11");
-				ace = input.nextInt();
-			}
-			if(ace == 1){
-				playerScore = playerScore + 1;
-			}
-			else if (ace == 11){
-				playerScore = playerScore + 11;
-			
-			}	
-			
-		}
-		else
-		{
-			playerScore = playerScore + playerDeck.cardValue(playerIndex);
-		}
+		playerScore = dDraw(playerDeck, playerScore, playerIndex, input);
 		playerIndex++;
 		
 		deck.dealCard(dealerDeck);
@@ -248,31 +239,7 @@ public class Main {
 		//System.out.println("Press any key to continue \n");  // stop gap
 		input.nextLine();
 		
-		deck.dealCard(playerDeck);
-		System.out.println("You were dealt \n");
-		playerDeck.showCard(playerIndex);
-		if(playerDeck.aceCheck(playerIndex)){
-			
-			System.out.println("You were dealt an Ace, would you like it to be a 1 or 11?");
-			int ace = input.nextInt();
-			while(ace != 1 && ace != 11){
-				System.out.println("Invalid number, choose 1 or 11");
-				ace = input.nextInt();
-			}
-			if(ace == 1){
-				playerScore = playerScore + 1;
-			}
-			else if (ace == 11){
-				playerScore = playerScore + 11;
-			
-			}
-			
-			
-		}
-		else
-		{
-			playerScore = playerScore + playerDeck.cardValue(playerIndex);
-		}
+		playerScore = dDraw(playerDeck, playerScore, playerIndex, input);
 		playerIndex++;
 		
 		deck.dealCard(dealerDeck);
@@ -297,46 +264,132 @@ public class Main {
 		System.out.println("Dealer currently has: \n");
 		dealerDeck.showCard(0);
 		
-		System.out.println("Player currently has: " + playerScore + "\n");
-		for(int i = 0; i <playerDeck.deckSize(); i++){
-		playerDeck.showCard(i);
-		}
-		
+		print(playerDeck, playerScore, "Player");
+			
 		
 		// **************************************************************************
+		
+		if(playerDeck.blackjackCheck() == true){
+						
+			System.out.println("Congratulations got a Blackjack and get 1.5x return on your bet");
+			blackjack = true;
+			
+		}
+		else if(playerDeck.cardValue(0) == playerDeck.cardValue(1)){
+			System.out.println("You have drawn a pair, you get the option to split.");
+			System.out.println("Type s to stay, d to draw another card, f to split your cards, a to double your bet, k to surrender and reclaim half your bet\n");
+		}
+		else if(playerScore >= 9 && playerScore <= 11){
+			System.out.println("You have a score between 9 and 11 you get the option to double down.");
+			System.out.println("If you choose to double down you will only be dealt 1 more card");
+			System.out.println("Type s to stay, d to draw another card, a to double down, k to surrender and reclaim half your bet\n");
+		}
+		else{
+		System.out.println("Type s to stay, d to draw another card, k to surrender and reclaim half your bet\n");
+		}
+		char ch = input.next().charAt(0);
+		
+		if(blackjack == true){
+			draw = 's';
+		}
+		else if(ch == 'f'){
+			
+			if(playerDeck.cardValue(0) == playerDeck.cardValue(1)){
+			
+			if(bet > money){
+
+				while(ch == 'f'){
+					System.out.println("Sorry you don't have enough money to do a split");
+					System.out.println("Type s to stay or d to draw another card\n");
+					ch = input.next().charAt(0);			
+				}
+				draw = ch;
+			}
+			
+			else{
+			money = money - bet;
+			System.out.println("Thank you, $" + bet + " was taken from your money for the split\n");
+			draw = 'f';
+			}
+			
+			}
+			else
+			{
+				while(ch == 'f'){
+					System.out.println("Type s to stay, d to draw another card, k to surrender and reclaim half your bet\n");;
+					ch = input.next().charAt(0);			
+				}
+				draw = ch;
+			}
+			
+				
+		}
+		else if(ch == 'a'){
+			
+			if(playerScore >= 9 && playerScore <= 11){
+			
+			if(bet > money){ // don't have enough money to double down
+				while(ch == 'a'){
+					System.out.println("Sorry you don't have enough money to double your bet");
+					System.out.println("Type s to stay, d to draw another card, k to surrender and reclaim half your bet\n");
+					ch = input.next().charAt(0);			
+				}
+				draw = ch;
+			}
+			else{
+			money = money - bet;
+			bet = bet*2;
+			System.out.println("Thank you, your bet is now $" + bet + "\n");
+			
+			draw = 'a';
+			}
+			
+			}
+			else
+			{
+				while(ch == 'a'){
+					System.out.println("Type s to stay, d to draw another card, k to surrender and reclaim half your bet\n");;
+					ch = input.next().charAt(0);			
+				}
+				draw = ch;
+				
+			}
+		}
+		
+		else{
+			draw = ch;
+		}
+		
+		if(draw == 'k'){
+			bet = bet/2;
+			System.out.println("You have chosen to surrender. You will get back $" + bet + " of your bet");
+			money = money + bet;
+			play = false;
+		}
+		if(draw == 'a'){
+			playerScore = dDraw(playerDeck, playerScore, playerIndex, input);
+			playerIndex++;
+			
+			dealer = dealerResult(dealerDeck, dealerScore, dealerIndex, input);
+			dealerScore = dealer.getDealerScore();
+			dealerIndex = dealer.getDealerIndex();
+			
+			
+			money = result(playerDeck, dealerDeck, playerScore, dealerScore, money, bet, bust, "Player", blackjack);
+			
+			play = false;
+			
+		}
 		
 		
 		while(play == true){
 		
-		System.out.println("Type s to stay or d to draw another card");
+		// System.out.println("Type s to stay or d to draw another card");
+			
 		
-		draw = input.next().charAt(0);
 		if(draw == 'd'){
 			
-			deck.dealCard(playerDeck);
-			System.out.println("You were dealt \n");
-			playerDeck.showCard(playerIndex);
-			if(playerDeck.aceCheck(playerIndex)){
-				
-				System.out.println("You were dealt an Ace, would you like it to be a 1 or 11?");
-				int ace = input.nextInt();
-				while(ace != 1 && ace != 11){
-					System.out.println("Invalid number, choose 1 or 11");
-					ace = input.nextInt();
-				}
-				if(ace == 1){
-					playerScore = playerScore + 1;
-				}
-				else if (ace == 11){
-					playerScore = playerScore + 11;
-				
-				}
-				
-			}
-			else
-			{
-				playerScore = playerScore + playerDeck.cardValue(playerIndex);
-			}
+			playerScore = dDraw(playerDeck, playerScore, playerIndex, input);
 			playerIndex++;
 			
 			
@@ -346,109 +399,280 @@ public class Main {
 			System.out.println("Dealer currently has: \n");
 			dealerDeck.showCard(0);
 			
-			System.out.println("Player currently has: " + playerScore + "\n");
-			for(int i = 0; i <playerDeck.deckSize(); i++){
-			playerDeck.showCard(i);
-			}
+			print(playerDeck, playerScore, "Player");
+			
 			if(playerScore > 21){
 				
 				System.out.println("Sorry you went over 21, you lose. \n");
 				play = false;
 				
 			}
+			else{
+				System.out.println("Type s to stay or d to draw another card\n");
+				draw = input.next().charAt(0);
+			}
 			
 			
 		}
 		else if(draw == 's'){
 				
-			while(dealerScore < 16){  // dealer always stands at 16 and dealer can see player's score so no need to go over their score
-				System.out.println("Dealer currently has: " + dealerScore + "\n");
-				for(int i = 0; i <dealerDeck.deckSize(); i++){
-				dealerDeck.showCard(i);
-				}
-				
-				
-				
-				deck.dealCard(dealerDeck);
-				System.out.println("Dealer draws  \n");
-				dealerDeck.showCard(dealerIndex);
-				if(dealerDeck.aceCheck(dealerIndex)){
-					if(dealerScore >= 11){
-						dealerScore = dealerScore + 1;
-					}
-					else {
-						dealerScore = dealerScore +11;
-					}
-					
-				}
-				else{
-				dealerScore = dealerScore + dealerDeck.cardValue(dealerIndex);
-				}
-				dealerIndex++;
-				
-			/*	if(dealerScore > 21){
-					System.out.println("Congratulations you win " + bet);
-					money = money + bet*2;
-					play = false;
-					
-				}
-				
-				if(dealerScore > playerScore){
-					System.out.println("Sorry you lose");
-					play = false;
-					
-				} 
-				
-				*/
-			}
+			dealer = dealerResult(dealerDeck, dealerScore, dealerIndex, input);
+			dealerScore = dealer.getDealerScore();
+			dealerIndex = dealer.getDealerIndex();
 			
-			System.out.println("Dealer currently has: " + dealerScore + "\n");
-			for(int i = 0; i <dealerDeck.deckSize(); i++){
-			dealerDeck.showCard(i);
-			}
-			
-			System.out.println("Player currently has: " + playerScore + "\n");
-			for(int i = 0; i <playerDeck.deckSize(); i++){
-			playerDeck.showCard(i);
-			}
-			
-			if(playerScore > 21){
-				System.out.println("Sorry you lose\n");
-				play = false;
-				
-			}
-			
-			else if(dealerScore > 21){
-				System.out.println("Congratulations you win " + bet + "\n");
-				money = money + bet*2;
-				play = false;
-				
-			}
-			else if(playerScore == dealerScore){
-				System.out.println("It was a tie, you get your bet back\n");
-				money = money + bet;
-				play = false;
-			}
-			
-			else if(playerScore > dealerScore){
-				
-				System.out.println("Congratulations you win " + bet + "\n");
-				money = money + bet*2;
-				play = false;
-				
-			}
-			else{
-				System.out.println("Sorry you lose\n");
-				play = false;
-				
-			}
+			money = result(playerDeck, dealerDeck, playerScore, dealerScore, money, bet, bust, "Player", blackjack);
+			play = false;
 			
 		}
 		
-		} // while
+		else if(draw == 'f'){
+			
+			int splitIndex = 0;
+			int splitScore = 0;
+			playerIndex = 0;
+			char choice1 = 'd';
+			char choice2 = 'd';
+			boolean going = true;
+			boolean blackjack2 = false;
+			 			
+			splitDeck.clearDeck();
+			
+			playerDeck.dealCard(splitDeck);
+			splitIndex++; // because each deck has 1 card in it now
+			playerIndex++;
+			
+			splitScore = splitDeck.cardValue(0); 
+			playerScore = playerDeck.cardValue(0);
+			
+					
+			System.out.println("You have split the deck\n");
+			
+			System.out.println("Dealer Currently has: \n" + dealerDeck.printCard(0) + "\n");
+			
+			print(playerDeck, playerScore, "Deck 1");
+		
+			print(splitDeck, splitScore, "Deck 2");
+			
+			playerScore = dDraw(playerDeck, playerScore, playerIndex, input);
+			playerIndex++;
+			
+			splitScore = dDraw(splitDeck, splitScore, splitIndex, input);
+			splitIndex++;
+			
+			if(playerDeck.blackjackCheck() == true){
+				System.out.println("Congratulations got a Blackjack and get 1.5x return on your bet");
+				blackjack = true;
+				choice1 = 's';
+			}
+			
+			if(splitDeck.blackjackCheck() == true){				
+				System.out.println("Congratulations got a Blackjack and get 1.5x return on your bet");
+				blackjack2 = true;
+				choice2 = 's';
+			}
+			
+			// ******************************************************************************
+			
+			while(going == true){
+			
+				System.out.println("Dealer Currently has: \n" + dealerDeck.printCard(0) + "\n");
+				
+				print(playerDeck, playerScore, "Deck 1");
+			
+				print(splitDeck, splitScore, "Deck 2");
+				
+				if(choice1 != 's' && playerScore <= 21){
+										
+					System.out.println("What would you like to do with Deck 1? Type s to stay, d to draw another card");
+					
+					choice1 = input.next().charAt(0);
+					
+					if(choice1 == 'd'){
+						playerScore = dDraw(playerDeck, playerScore, playerIndex, input);
+						playerIndex++;
+											
+					}
+				}
+				if(choice2 != 's' && splitScore <= 21){
+					
+					System.out.println("What would you like to do with Deck 2? Type s to stay, d to draw another card");
+					
+					choice2 = input.next().charAt(0);
+					
+					if(choice2 == 'd'){
+						splitScore = dDraw(splitDeck, splitScore, splitIndex, input);
+						splitIndex++;
+						
+						
+					}
+				}
+				
+			if(playerScore > 21 && splitScore > 21){
+				
+				System.out.println("Sorry both decks lose");
+				
+				going = false;
+				play = false;
+				
+				
+			}
+			
+			
+			if((choice1 == 's' && choice2 == 's') || (playerScore > 21 && choice2 == 's') || (choice1 == 's' && splitScore > 21)){
+				
+				dealer = dealerResult(dealerDeck, dealerScore, dealerIndex, input);
+				dealerScore = dealer.getDealerScore();
+				dealerIndex = dealer.getDealerIndex();
+				
+				money = result(playerDeck, dealerDeck, playerScore, dealerScore, money, bet, bust, "Deck 1", blackjack);
+				
+				money = result(splitDeck, dealerDeck, splitScore, dealerScore, money, bet, bust, "Deck 2", blackjack2);
+				
+				going = false;
+				
+				play = false;
+				
+				
+			}
+			
+			
+			
+			} //while go
+		} // if f
+		
+		} // while play
 		
 		return money;
 	}
 	
+	private static void print(Deck deck, int score, String who){
+		System.out.println( who + " currently has: " + score);
+		for(int i = 0; i <deck.deckSize(); i++){
+		System.out.println(deck.printCard(i));
+		}
+		System.out.print("\n");
+	}
+	
+	private static int dDraw(Deck thisDeck, int playerScore, int playerIndex, Scanner input){
+		
+		deck.dealCard(thisDeck);
+		System.out.println("You were dealt \n");
+		thisDeck.showCard(playerIndex);
+
+		input.nextLine();
+		if(thisDeck.aceCheck(playerIndex)){
+			
+			System.out.println("You were dealt an Ace, would you like it to be a 1 or 11?");
+			int ace = input.nextInt();
+			while(ace != 1 && ace != 11){
+				System.out.println("Invalid number, choose 1 or 11");
+				ace = input.nextInt();
+			}
+			if(ace == 1){
+				playerScore = playerScore + 1;
+			}
+			else if (ace == 11){
+				playerScore = playerScore + 11;
+			
+			}
+			
+		}
+		else
+		{
+			playerScore = playerScore + thisDeck.cardValue(playerIndex);
+		}
+		
+		
+		return playerScore;
+	}
+	
+	private static int result(Deck pDeck, Deck dDeck, int playerScore, int dealerScore, 
+						int money, int bet, int bust, String s, boolean blackjack){
+		
+		
+		
+		print(dDeck, dealerScore, "Dealer");
+		
+		print(pDeck, playerScore, s);
+		
+		if(playerScore > 21){
+			System.out.println("Sorry you lost $" + bet + "\n");
+			
+			
+		}
+		
+		else if(dealerScore > 21){
+			System.out.println("Congratulations you win $" + bet + "\n");
+			money = money + bet*2;
+			if(bust > 0){
+				
+				
+			}
+			
+		}
+		else if(playerScore == dealerScore){
+			System.out.println("It was a tie, you get $" + bet + " back\n");
+			money = money + bet;
+			
+		}
+		
+		else if(playerScore > dealerScore){
+			
+			
+			if(blackjack == true){
+				int bet2 = 0;
+				bet2 = bet + bet/4;
+				System.out.println("Congratulations you win $" + bet2 + "\n");
+				money = money + bet + bet2;
+				
+			}
+			else{
+			System.out.println("Congratulations you win $" + bet + "\n");
+			money = money + bet*2;
+			
+			}
+		}
+		else{
+			System.out.println("Sorry you lost $" + bet + "\n");
+			
+			
+		}
+		
+		return money;
+	}
+	
+	private static Dealer dealerResult(Deck dDeck, int dealerScore, int dealerIndex, Scanner input){
+		while(dealerScore < 17){  // dealer always stands at 17 and dealer can see player's score so no need to go over their score
+			print(dDeck, dealerScore, "Dealer");
+			
+			
+			
+			deck.dealCard(dDeck);
+			System.out.println("Dealer draws  \n");
+
+			dDeck.showCard(dealerIndex);
+			
+			input.nextLine();
+			
+			if(dDeck.aceCheck(dealerIndex)){
+				if(dealerScore >= 11){
+					dealerScore = dealerScore + 1;
+				}
+				else {
+					dealerScore = dealerScore +11;
+				}
+				
+			}
+			else{
+			dealerScore = dealerScore + dDeck.cardValue(dealerIndex);
+			}
+			
+			dealerIndex++;
+		}
+		
+		return new Dealer(dDeck, dealerScore, dealerIndex);
+	}
 
 } // final
+
+
