@@ -110,6 +110,22 @@ public class Deck {
 	
 	}
 	
+	public void testDeck(){
+		
+		Card.add(new Cards("ADiamond", 11, true));
+		Card.add(new Cards("ADiamond", 11, true));
+		Card.add(new Cards("ADiamond", 11, true));
+		Card.add(new Cards("ADiamond", 11, true));
+		Card.add(new Cards("ADiamond", 11, true));
+		Card.add(new Cards("JDiamond", 10, false));
+		Card.add(new Cards("JDiamond", 10, false));
+		Card.add(new Cards("JDiamond", 10, false));
+		Card.add(new Cards("JDiamond", 10, false));
+		Card.add(new Cards("JDiamond", 10, false));
+		Card.add(new Cards("JDiamond", 10, false));
+		
+	}
+	
 	public void addDeck(){
 		
 		Card.add(new Cards("ADiamond", 11, true));

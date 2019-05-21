@@ -31,23 +31,40 @@ public class Main {
 		
 		startPrompt();
 		
-		
-		while (stop == false){
-				
-		
 		decision = input.next().charAt(0);
-		
+		while(decision != 'y' && decision != 'n' && decision !='p'){
+			startPrompt();
+			decision = input.next().charAt(0);
+		}
+		while (stop == false){
+			
 		if(decision == 'y'){
+			char dec = decision;
+			
+			while(dec == 'y'){
+				
 			deck.setDeck();
 			
 			if(currentMoney > 0){
 			currentMoney = game(currentMoney);
 			prompt(currentMoney);
+			dec = input.next().charAt(0);
+			while(dec != 'y' && dec != 'n'){
+				prompt(currentMoney);
+				dec = input.next().charAt(0);
+			}
 			}
 			else{
 				stop = true;
 				System.out.println("Sorry You Don't Have Enough Money, Thank You Come Again");
+				input.nextLine();
 			}
+			}
+			
+			System.out.println("Thank you for playing, Good Bye.");
+			input.nextLine();
+			stop = true;
+		
 			
 		}
 		else if(decision == 'n'){
@@ -56,9 +73,10 @@ public class Main {
 			
 			stop = true;
 			System.out.println("Thank you for playing, Good Bye.");
+			input.nextLine();
 			
 		}
-		else if(decision == 'a'){
+		else if(decision == 'p'){
 			
 			admin();
 						
@@ -190,15 +208,19 @@ public class Main {
 		char draw;
 		int playerIndex = 0;	// counter for where you are in playerDeck
 		int dealerIndex = 0;	// counter for where you are in dealerDeck
-		
+		char ch = 'q'; // initialized to q because q won't be used
 		int bust = 0;
 		
 		boolean blackjack = false; // triggers if player gets a blackjack
 		
 		System.out.println("How much would you like to bet?\n");
-		
+
+		while(input.hasNextInt() == false){
+			System.out.println("You must enter a number.\n");	
+			System.out.println("How much would you like to bet?\n");		
+			input.next();
+		}
 		int bet = input.nextInt();
-		
 		while(bet > money){
 			
 			System.out.println("Sorry you don't have enough money, please choose a lower bet\n");
@@ -273,26 +295,39 @@ public class Main {
 						
 			System.out.println("Congratulations got a Blackjack and get 1.5x return on your bet");
 			blackjack = true;
+			input.nextLine();
 			
 		}
 		else if(playerDeck.cardValue(0) == playerDeck.cardValue(1)){
-			System.out.println("You have drawn a pair, you get the option to split.");
-			System.out.println("Type s to stay, d to draw another card, f to split your cards, a to double your bet, k to surrender and reclaim half your bet\n");
+			while(ch != 's' && ch != 'd' && ch != 'k' && ch != 'a' && ch != 'f'){
+				System.out.println("You have drawn a pair, you get the option to split.");
+				System.out.println("Type s to stay, d to draw another card, f to split your cards, "
+						+ "a to double your bet, k to surrender and reclaim half your bet\n");
+				ch = input.next().charAt(0);
+			}
+			
 		}
 		else if(playerScore >= 9 && playerScore <= 11){
-			System.out.println("You have a score between 9 and 11 you get the option to double down.");
-			System.out.println("If you choose to double down you will only be dealt 1 more card");
-			System.out.println("Type s to stay, d to draw another card, a to double down, k to surrender and reclaim half your bet\n");
+			while(ch != 's' && ch != 'd' && ch != 'k' && ch != 'a'){
+				System.out.println("You have a score between 9 and 11 you get the option to double down.");
+				System.out.println("If you choose to double down you will only be dealt 1 more card");
+				System.out.println("Type s to stay, d to draw another card, a to double down, k to surrender and reclaim half your bet\n");
+				ch = input.next().charAt(0);
+			}
+			
 		}
 		else{
-		System.out.println("Type s to stay, d to draw another card, k to surrender and reclaim half your bet\n");
+		while(ch != 's' && ch != 'd' && ch != 'k'){
+			System.out.println("Type s to stay, d to draw another card, k to surrender and reclaim half your bet\n");
+			ch = input.next().charAt(0);
 		}
-		char ch = input.next().charAt(0);
+		}
+		
 		
 		if(blackjack == true){
 			draw = 's';
 		}
-		else if(ch == 'f'){
+		if(ch == 'f'){
 			
 			if(playerDeck.cardValue(0) == playerDeck.cardValue(1)){
 			
@@ -410,6 +445,10 @@ public class Main {
 			else{
 				System.out.println("Type s to stay or d to draw another card\n");
 				draw = input.next().charAt(0);
+				while(draw != 's' && draw != 'd'){
+					System.out.println("Type s to stay or d to draw another card\n");	
+					draw = input.next().charAt(0);
+				}
 			}
 			
 			
@@ -486,6 +525,10 @@ public class Main {
 					System.out.println("What would you like to do with Deck 1? Type s to stay, d to draw another card");
 					
 					choice1 = input.next().charAt(0);
+					while(choice1 != 's' && choice1 != 'd'){
+						System.out.println("What would you like to do with Deck 1? Type s to stay, d to draw another card");
+						choice1 = input.next().charAt(0);
+					}
 					
 					if(choice1 == 'd'){
 						playerScore = dDraw(playerDeck, playerScore, playerIndex, input);
@@ -498,6 +541,10 @@ public class Main {
 					System.out.println("What would you like to do with Deck 2? Type s to stay, d to draw another card");
 					
 					choice2 = input.next().charAt(0);
+					while(choice2 != 's' && choice2 != 'd'){
+						System.out.println("What would you like to do with Deck 2? Type s to stay, d to draw another card");
+						choice2 = input.next().charAt(0);
+					}
 					
 					if(choice2 == 'd'){
 						splitScore = dDraw(splitDeck, splitScore, splitIndex, input);
