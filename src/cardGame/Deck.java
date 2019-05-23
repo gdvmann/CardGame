@@ -100,11 +100,13 @@ public class Deck {
 	}
 	
 	
-	public void setDeck(){
+	public void setDeck(int numofDecks){
 		
 		clearDeck();
 		
+		for(int i = 0; i < numofDecks; i++){
 		addDeck();
+		}
 		
 		shuffleDeck();
 	
